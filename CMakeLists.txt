@@ -13,6 +13,9 @@ if(CMAKE_PROJECT_NAME STREQUAL "muduo")
   option(MUDUO_BUILD_EXAMPLES "Build Muduo examples" ON)
 endif()
 
+set(BOOST_ROOT /usr/lib64/boost/1_68_0)
+add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY)
+
 set(CXX_FLAGS
  -g
  # -DVALGRIND
@@ -20,7 +23,6 @@ set(CXX_FLAGS
  -D_FILE_OFFSET_BITS=64
  -Wall
  -Wextra
- -Werror
  -Wconversion
  -Wno-unused-parameter
  -Wold-style-cast
@@ -50,7 +52,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG")
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 
-find_package(Boost REQUIRED)
+find_package(Boost 1.68 REQUIRED)
 find_package(Protobuf)
 find_package(CURL)
 find_package(ZLIB)

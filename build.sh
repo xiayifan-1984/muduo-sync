@@ -1,7 +1,10 @@
 #!/bin/sh
 
 set -x
-
+export CC=/usr/lib64/gcc-8.2.0/bin/gcc
+export CXX=/usr/lib64/gcc-8.2.0/bin/g++
+export LD_LIBRARY_PATH=/usr/lib64/boost/1_68_0:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=./:$LD_LIBRARY_PATH
 SOURCE_DIR=`pwd`
 BUILD_DIR=${BUILD_DIR:-../build}
 BUILD_TYPE=${BUILD_TYPE:-release}
@@ -11,6 +14,7 @@ CXX=${CXX:-g++}
 ln -sf $BUILD_DIR/$BUILD_TYPE-cpp11/compile_commands.json
 
 mkdir -p $BUILD_DIR/$BUILD_TYPE-cpp11 \
+  && mkdir -p ../$BUILD_TYPE-install-cpp11 \
   && cd $BUILD_DIR/$BUILD_TYPE-cpp11 \
   && cmake \
            -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
@@ -24,4 +28,3 @@ mkdir -p $BUILD_DIR/$BUILD_TYPE-cpp11 \
 # CTEST_OUTPUT_ON_FAILURE=TRUE make test
 
 # cd $SOURCE_DIR && doxygen
-
